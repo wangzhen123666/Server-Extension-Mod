@@ -12,7 +12,7 @@ replication
 
 simulated function bool GetUsingTactialReload( KFWeapon KFW )
 {
-	return (IsWeaponOnPerk(KFW) ? Modifiers[5]<0.8 : false);
+	return (IsWeaponOnPerk(KFW) && bTacticalReload ? true : false);
 }
 
 
@@ -32,7 +32,6 @@ function float GetStunPowerModifier( optional class<DamageType> DamageType, opti
 defaultproperties
 {
 	ZTExtCountSub=1.0
-	PerkName="…Ò…‰ ÷"
 	PerkIcon=Texture2D'UI_PerkIcons_TEX.UI_PerkIcon_Sharpshooter'
 	DefTraitList.Add(class'Ext_TraitWPSharp')
 	DefTraitList.Add(class'Ext_TraitRackEmUp')

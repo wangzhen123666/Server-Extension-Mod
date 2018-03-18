@@ -13,9 +13,7 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 defaultproperties
 {
 	SupportedPerk=class'Ext_PerkSupport'
-	TraitName="门维修"
 	NumLevels=1
 	DefLevelCosts(0)=30
 	DefMinLevel=25
-	Description="使你能用焊机修复门"
 }

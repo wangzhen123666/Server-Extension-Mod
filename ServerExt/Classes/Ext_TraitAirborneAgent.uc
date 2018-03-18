@@ -5,7 +5,7 @@ static function string GetPerkDescription()
 	local string S;
 
 	S = Super.GetPerkDescription();
-	S $= "|特性需求转生等级: #{FF4000}1";
+	S $= Default.ExtraDesc;
 	return S;
 }
 
@@ -42,9 +42,7 @@ defaultproperties
 {
 	SupportedPerk=class'Ext_PerkFieldMedic'
 	TraitGroup=class'Ext_TGroupZEDTime'
-	TraitName="子弹时间-悬浮剂"
 	NumLevels=1
 	DefLevelCosts(0)=60
 	DefMinLevel=75
-	Description="子弹时间你将释放一个治疗气环，治疗身边的队友. ||-需求: 手雷升级特性需升级至 1!"
 }

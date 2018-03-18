@@ -12,8 +12,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 defaultproperties
 {
 	SupportedPerk=class'Ext_PerkDemolition'
-	TraitName="高冲击"
 	DefLevelCosts(0)=65
 	DefMinLevel=35
-	Description="爆破武器将对直接命中的造成25%额外伤害。!"
 }

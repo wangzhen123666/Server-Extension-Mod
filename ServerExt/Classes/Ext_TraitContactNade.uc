@@ -11,7 +11,5 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 
 defaultproperties
 {
-	TraitName="´¥·¢±¬Õ¨"
 	DefLevelCosts(0)=25
-	Description="Ê¹Õ¨Ò©½Ó´¥µ½É¥Ê¬Ö±½Ó±¬Õ¨¡£"
 }

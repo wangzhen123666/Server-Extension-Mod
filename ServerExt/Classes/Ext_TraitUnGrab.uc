@@ -11,7 +11,5 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 
 defaultproperties
 {
-	TraitName="假动作"
 	DefLevelCosts(0)=30
-	Description="这个特性丧尸将不能抓住你."
 }

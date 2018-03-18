@@ -12,8 +12,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 defaultproperties
 {
 	SupportedPerk=class'Ext_PerkDemolition'
-	TraitName="反应装甲"
 	DefLevelCosts(0)=25
 	DefMinLevel=45
-	Description="接近死亡时，让自己损失5生命,产生爆炸。"
 }

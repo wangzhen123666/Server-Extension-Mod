@@ -13,7 +13,5 @@ defaultproperties
 {
 	SupportedPerk=class'Ext_PerkSharpshooter'
 	TraitGroup=class'Ext_TGroupZEDTime'
-	TraitName="子弹时间-游骑兵"
 	DefLevelCosts(0)=40
-	Description="子弹时间使用职业武器爆头将能击晕丧尸."
 }

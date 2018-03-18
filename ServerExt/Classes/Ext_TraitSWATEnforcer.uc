@@ -21,8 +21,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 
 defaultproperties
 {
-	TraitName="子弹时间-实时移动"
 	TraitGroup=class'Ext_TGroupZEDTime'
 	DefLevelCosts(0)=50
-	Description="这个特性可以让你在子弹时间实时移动并且撞退丧尸."
 }

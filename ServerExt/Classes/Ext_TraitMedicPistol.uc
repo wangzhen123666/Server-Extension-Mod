@@ -8,7 +8,5 @@ static function AddDefaultInventory( KFPawn Player, Ext_PerkBase Perk, byte Leve
 
 defaultproperties
 {
-	TraitName="医疗手枪"
 	DefLevelCosts(0)=20
-	Description="初始医疗手枪替换9MM手枪."
 }

@@ -12,8 +12,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 defaultproperties
 {
 	SupportedPerk=class'Ext_PerkDemolition'
-	TraitName="穿甲弹"
 	DefLevelCosts(0)=100
 	DefMinLevel=50
-	Description="当爆破武器击中要害点将获得50%伤害加成"
 }

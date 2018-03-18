@@ -23,11 +23,9 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 defaultproperties
 {
 	SupportedPerk=class'Ext_PerkFieldMedic'
-	TraitName="专注注射"
 	NumLevels=3
 	DefLevelCosts(0)=40
 	DefLevelCosts(1)=50
 	DefLevelCosts(2)=60
 	DefMinLevel=85
-	Description="向队员投掷治愈飞镖，提升他们的破坏力10-30%. 每级效果提升:|等级1-3: 10%, 20%, 30%"
 }

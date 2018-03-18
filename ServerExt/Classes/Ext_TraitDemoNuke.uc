@@ -5,7 +5,7 @@ static function string GetPerkDescription()
 	local string S;
 
 	S = Super.GetPerkDescription();
-	S $= "|特性需求转生等级: #{FF4000}1";
+	S $= Default.ExtraDesc;
 	return S;
 }
 
@@ -54,12 +54,10 @@ defaultproperties
 {
 	SupportedPerk=class'Ext_PerkDemolition'
 	TraitGroup=class'Ext_TGroupZEDTime'
-	TraitName="子弹时间 - 核弹"
 	NumLevels=4
 	DefLevelCosts(0)=100
 	DefLevelCosts(1)=150
 	DefLevelCosts(2)=200
 	DefLevelCosts(3)=250
 	DefMinLevel=100
-	Description="爆破武器将在子弹时间产生核爆. |每级增加的核爆的损害和时间。 ||-需求: 伤害属性需要加30点以上!"
 }

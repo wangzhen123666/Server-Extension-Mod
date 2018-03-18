@@ -10,7 +10,5 @@ static function AddDefaultInventory( KFPawn Player, Ext_PerkBase Perk, byte Leve
 // Decompiled with UE Explorer.
 defaultproperties
 {
-    TraitName="±ù¶³ÅçÉäÆ÷"
-    Description="³õÊ¼»ñµÃ±ù¶³ÅçÉäÆ÷."
     DefLevelCosts(0)=50
 }

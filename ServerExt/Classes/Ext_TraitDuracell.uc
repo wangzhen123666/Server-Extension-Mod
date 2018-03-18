@@ -15,13 +15,11 @@ static function CancelEffectOn( KFPawn_Human Player, Ext_PerkBase Perk, byte Lev
 
 defaultproperties
 {
-	TraitName="霸王电池"
 	NumLevels=4
 	DefLevelCosts(0)=5
 	DefLevelCosts(1)=10
 	DefLevelCosts(2)=20
 	DefLevelCosts(3)=25
-	Description="有了这个特性，你的手电筒电池变得更加耐用。|等级1-4: +30,+100,+300,+1000% 时间"
 	BatteryCharges.Add(0.77)
 	BatteryCharges.Add(0.5)
 	BatteryCharges.Add(0.333)

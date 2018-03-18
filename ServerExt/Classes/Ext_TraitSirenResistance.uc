@@ -11,8 +11,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 
 defaultproperties
 {
-	TraitName="女妖抗性"
 	DefLevelCosts(0)=50
 	DefMinLevel=75
-	Description="是你的所有投射物都能抵抗女妖的尖叫."
 }

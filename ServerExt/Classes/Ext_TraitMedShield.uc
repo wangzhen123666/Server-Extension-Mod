@@ -23,7 +23,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 defaultproperties
 {
 	SupportedPerk=class'Ext_PerkFieldMedic'
-	TraitName="促凝剂"
 	NumLevels=5
 	DefLevelCosts(0)=35
 	DefLevelCosts(1)=10
@@ -31,5 +30,4 @@ defaultproperties
 	DefLevelCosts(3)=30
 	DefLevelCosts(4)=40
 	DefMinLevel=100
-	Description="向队员投掷治愈飞镖，提升他们的伤害抗性10-30%. 每级提升效果:|等级1-5: 10%, 15%, 20%, 25%, 30%"
 }

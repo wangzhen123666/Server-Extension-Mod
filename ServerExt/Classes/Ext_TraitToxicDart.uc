@@ -14,7 +14,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 
 defaultproperties
 {
-	TraitName="毒镖"
 	DefLevelCosts(0)=25
 	DefLevelCosts(1)=25
 	DefLevelCosts(2)=30
@@ -22,5 +21,4 @@ defaultproperties
 	DartDamages(1)=50
 	DartDamages(2)=100
 	NumLevels=3
-	Description="使你的治疗飞镖对丧尸的毒伤害增加:|等级 1-3: +25, +50, +100 伤害"
 }

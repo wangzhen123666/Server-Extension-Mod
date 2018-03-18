@@ -19,12 +19,10 @@ defaultproperties
 {
 	SupportedPerk=class'Ext_PerkBerserker'
 	TraitGroup=class'Ext_TGroupZEDTime'
-	TraitName="子弹时间-斯巴达!"
 	NumLevels=3
 	DefLevelCosts(0)=50
 	DefLevelCosts(1)=40
 	DefLevelCosts(2)=80
-	Description="在丧尸时间中，你要使用职业武器进行攻击并且实时移动.|等级1-3: +200,+300,+400% 攻击速度"
 	AtkRates.Add(3.0)
 	AtkRates.Add(4.0)
 	AtkRates.Add(5.0)

@@ -16,8 +16,6 @@ static function bool PreventDeath( KFPawn_Human Player, Controller Instigator, C
 
 defaultproperties
 {
-	TraitName="反击"
 	DefLevelCosts(0)=50
 	DefMinLevel=40
-	Description="死亡后产生自爆!"
 }

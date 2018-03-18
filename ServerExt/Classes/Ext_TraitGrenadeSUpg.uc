@@ -12,8 +12,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 
 defaultproperties
 {
-	TraitName="手雷升级"
 	DefLevelCosts(0)=50
-	Description="这个会升级到你特有的手榴弹.|等级 1: 超级手雷"
 	DefMinLevel=50
 }

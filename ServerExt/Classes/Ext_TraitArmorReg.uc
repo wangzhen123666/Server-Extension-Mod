@@ -18,8 +18,7 @@ static function CancelEffectOn( KFPawn_Human Player, Ext_PerkBase Perk, byte Lev
 
 defaultproperties
 {
-	TraitName="护甲恢复"
-	Description="这种特性你的盔甲将每10秒的速度回复:|等级1-3: +10点, +15点, +25点"
+	TraitGroup=class'Ext_TGroupRegen'
 	RegenValues.Empty()
 	RegenValues.Add(10)
 	RegenValues.Add(15)

@@ -11,8 +11,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 
 defaultproperties
 {
-	TraitName="夜视仪"
 	NumLevels=1
 	DefLevelCosts(0)=25
-	Description="初始获得夜视眼镜."
 }

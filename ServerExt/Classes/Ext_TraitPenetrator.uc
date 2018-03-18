@@ -5,7 +5,7 @@ static function string GetPerkDescription()
 	local string S;
 
 	S = Super.GetPerkDescription();
-	S $= "|特性需要转生等级: #{FF4000}1";
+	S $= Default.ExtraDesc;
 	return S;
 }
 
@@ -43,9 +43,7 @@ defaultproperties
 {
 	SupportedPerk=class'Ext_PerkSupport'
 	TraitGroup=class'Ext_TGroupZEDTime'
-	TraitName="子弹时间 - 穿甲弹"
 	NumLevels=1
 	DefLevelCosts(0)=50
 	DefMinLevel=65
-	Description="在丧尸时间中，职业武器可以穿刺其击中的任何目标。! ||-需求: 破甲射击特性等级需要升级到1!"
 }

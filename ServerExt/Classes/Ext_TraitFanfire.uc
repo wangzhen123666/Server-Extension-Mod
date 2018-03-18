@@ -13,7 +13,5 @@ defaultproperties
 {
 	SupportedPerk=class'Ext_PerkGunslinger'
 	TraitGroup=class'Ext_TGroupZEDTime'
-	TraitName="子弹时间-速射"
 	DefLevelCosts(0)=30
-	Description="子弹时间是你的职业武器实时开火."
 }

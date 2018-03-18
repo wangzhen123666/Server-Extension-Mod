@@ -23,12 +23,10 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 defaultproperties
 {
 	SupportedPerk=class'Ext_PerkSupport'
-	TraitName="穿甲弹"
 	NumLevels=4
 	DefLevelCosts(0)=15
 	DefLevelCosts(1)=30
 	DefLevelCosts(2)=40
 	DefLevelCosts(3)=50
 	DefMinLevel=15
-	Description="大大增加了武器穿透力！穿透强度每增加一级增加:|Lv1-4: 75%, 150%, 225%, 300%"
 }

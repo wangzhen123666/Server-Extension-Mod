@@ -12,7 +12,7 @@ replication
 
 simulated function bool GetUsingTactialReload( KFWeapon KFW )
 {
-	return (IsWeaponOnPerk(KFW) ? Modifiers[5]<0.75 : false);
+	return (IsWeaponOnPerk(KFW) && bTacticalReload ? true : false);
 }
 
 simulated function bool CanRepairDoors()
@@ -39,12 +39,12 @@ simulated function bool IsPerforateActive()
 
 defaultproperties
 {
-	PerkName="Ö§Ô®±ø"
 	PerkIcon=Texture2D'UI_PerkIcons_TEX.UI_PerkIcon_Support'
 	DefTraitList.Add(class'Ext_TraitGrenadeSUpg')
 	DefTraitList.Add(class'Ext_TraitWPSupp')
 	DefTraitList.Add(class'Ext_TraitSupply')
-	DefTraitList.Add(class'Ext_TraitAPShots')
+	DefTraitList.Add(class'Ext_TraitEliteReload')
+	DefTraitList.Add(class'Ext_TraitAPShots')	
 	DefTraitList.Add(class'Ext_TraitDoorRepair')
 	DefTraitList.Add(class'Ext_TraitPenetrator')
 	BasePerk=class'KFPerk_Support'

@@ -1,7 +1,7 @@
 Class Ext_PerkRhythmPerkBase extends Ext_PerkBase;
 
-var byte HeadShotComboCount,MaxRhythmCombo,MissComboCount;
-var float RhythmComboDmg,ZTExtCountSub;
+var byte HeadShotComboCount,MaxRhythmCombo;
+var float RhythmComboDmg,ZTExtCountSub,CountdownIntervall,HeadShotMultiplier;
 
 simulated function ModifyDamageGiven( out int InDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx )
 {
@@ -14,31 +14,49 @@ final function SetMaxRhythm( byte MaxCombo )
 {
 	MaxRhythmCombo = MaxCombo;
 }
+final function SetIntervall( float Intervall )
+{
+	CountdownIntervall = Intervall;
+}
+final function SetMultiplier( float Multiplier )
+{
+	HeadShotMultiplier = Multiplier;
+}
 final function ResetRhythm()
 {
 	MaxRhythmCombo = 0;
 	HeadShotComboCount = 0;
+	CountdownIntervall = 0;
+	HeadShotMultiplier = 0;
 	RhythmComboDmg = 0;
-	MissComboCount = 0;
 	HeadShotMessage(0,true,1);
 }
-
 final function UpdateDmgScale( bool bUp )
 {
 	if( bUp )
 	{
-		MissComboCount = 0;
-		HeadShotComboCount = Min(HeadShotComboCount+1,255);
+		HeadShotComboCount = Min(HeadShotComboCount+1,MaxRhythmCombo);
 		HeadShotMessage(HeadShotComboCount,false,MaxRhythmCombo);
+		SetTimer(CountdownIntervall,true,nameOf(ReduceDmgScale));
 	}
-	else if( HeadShotComboCount>0 && ++MissComboCount==3 )
+	else if( HeadShotComboCount>0 )
 	{
 		--HeadShotComboCount;
 		HeadShotMessage(HeadShotComboCount,true,MaxRhythmCombo);
-		MissComboCount = 0;
 	}
-	else return;
-	RhythmComboDmg = FMin(HeadShotComboCount,MaxRhythmCombo)*0.075;
+	RhythmComboDmg = FMin(HeadShotComboCount,MaxRhythmCombo)*HeadShotMultiplier;
+}
+final function ReduceDmgScale() 
+{
+	if (HeadShotComboCount>0)
+	{
+		UpdateDmgScale(false);
+	}
+	else
+	{
+		HeadShotComboCount=0;
+		ClearTimer(nameOf(UpdateDmgScale));
+	}
 }
 function UpdatePerkHeadShots( ImpactInfo Impact, class<DamageType> DamageType, int NumHit )
 {
@@ -50,8 +68,6 @@ function UpdatePerkHeadShots( ImpactInfo Impact, class<DamageType> DamageType, i
    	KFPM = KFPawn_Monster(Impact.HitActor);
    	if( KFPM==none || KFPM.GetTeamNum()==0 )
    	{
-   		if( NumHit < 1 && HeadShotComboCount>0 )
-			UpdateDmgScale(false);
    		return;
    	}
 
@@ -60,12 +76,9 @@ function UpdatePerkHeadShots( ImpactInfo Impact, class<DamageType> DamageType, i
 	{
 		if( class<KFDamageType>(DamageType)!=None && class<KFDamageType>(DamageType).Default.ModifierPerkList.Find(BasePerk)>=0 )
 			UpdateDmgScale(true);
-		else if( HeadShotComboCount>0 )
-			UpdateDmgScale(false);
 	}
-	else if( NumHit < 1 && HeadShotComboCount>0 )
-		UpdateDmgScale(false);
 }
+
 reliable client function HeadShotMessage( byte HeadShotNum, bool bMissed, byte MaxHits )
 {
 	local AkEvent TempAkEvent;

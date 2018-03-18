@@ -1,4 +1,4 @@
-Class Ext_PerkCommando extends Ext_PerkBase;
+Class Ext_PerkCommando extends Ext_PerkMetronomeBase;
 
 var bool bUseProfessional,bUseMachineGunner;
 var float ZTExtCount;
@@ -12,7 +12,8 @@ replication
 
 simulated function bool GetUsingTactialReload( KFWeapon KFW )
 {
-	return (IsWeaponOnPerk(KFW) ? Modifiers[5]<0.65 : false);
+
+	return (IsWeaponOnPerk(KFW) && bTacticalReload ? true : false);
 }
 
 simulated function ModifyDamageGiven( out int InDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx )
@@ -52,7 +53,6 @@ simulated function float GetZedTimeExtensions( byte Level )
 
 defaultproperties
 {
-	PerkName="Í»»÷±ø"
 	PerkIcon=Texture2D'UI_PerkIcons_TEX.UI_PerkIcon_Commando'
 	DefTraitList.Add(class'Ext_TraitWPComm')
 	DefTraitList.Add(class'Ext_TraitUnCloak')
@@ -61,6 +61,7 @@ defaultproperties
 	DefTraitList.Add(class'Ext_TraitEliteReload')
 	DefTraitList.Add(class'Ext_TraitTactician')
 	DefTraitList.Add(class'Ext_TraitMachineGunner')
+	DefTraitList.Add(class'Ext_TraitMetronome')
 	BasePerk=class'KFPerk_Commando'
 	
 	ZTExtCount=2.f;

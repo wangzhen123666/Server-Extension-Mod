@@ -20,17 +20,15 @@ static function CancelEffectOn( KFPawn_Human Player, Ext_PerkBase Perk, byte Lev
 
 defaultproperties
 {
-	TraitName="隐身探测"
 	NumLevels=5
 	DefLevelCosts(0)=5
 	DefLevelCosts(1)=7
 	DefLevelCosts(2)=10
 	DefLevelCosts(3)=15
 	DefLevelCosts(4)=25
-	Description="每级探测潜行者范围提升:|等级1-5: 5m, 10m, 15m, 20m, 30m"
-	RadiusValues.Add(500)
-	RadiusValues.Add(1000)
-	RadiusValues.Add(1500)
-	RadiusValues.Add(2000)
+	RadiusValues.Add(800)
+	RadiusValues.Add(1200)
+	RadiusValues.Add(1800)
 	RadiusValues.Add(3000)
+	RadiusValues.Add(6000)
 }

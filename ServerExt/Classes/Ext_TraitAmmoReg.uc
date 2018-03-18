@@ -21,12 +21,10 @@ static function CancelEffectOn( KFPawn_Human Player, Ext_PerkBase Perk, byte Lev
 defaultproperties
 {
 	TraitGroup=class'Ext_TGroupRegen'
-	TraitName="子弹恢复"
 	NumLevels=3
 	DefLevelCosts(0)=10
 	DefLevelCosts(1)=20
 	DefLevelCosts(2)=40
-	Description="这个特性将每分钟恢复你所有武器:|等级1-3: 10%, 20%, 30% 最大备弹量"
 	RegenValues.Add(0.10)
 	RegenValues.Add(0.20)
 	RegenValues.Add(0.30)

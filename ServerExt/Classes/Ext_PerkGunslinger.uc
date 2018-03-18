@@ -11,7 +11,7 @@ replication
 
 simulated function bool GetUsingTactialReload( KFWeapon KFW )
 {
-	return (IsWeaponOnPerk(KFW) ? Modifiers[5]<0.8 : false);
+	return (IsWeaponOnPerk(KFW) && bTacticalReload ? true : false);
 }
 
 simulated function bool GetIsUberAmmoActive( KFWeapon KFW )
@@ -36,7 +36,7 @@ simulated function float GetZedTimeModifier( KFWeapon W )
 defaultproperties
 {
     	ZTExtCountSub=1.0
-	PerkName="Ç¹ÊÖ"
+	DefTraitList.Add(class'Ext_TraitEliteReload')
 	DefTraitList.Add(class'Ext_TraitWPGuns')
 	DefTraitList.Add(class'Ext_TraitUberAmmo')
 	DefTraitList.Add(class'Ext_TraitFanfire')

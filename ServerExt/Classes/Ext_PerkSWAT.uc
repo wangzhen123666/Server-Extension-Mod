@@ -10,6 +10,13 @@ replication
 		RepTacticalMove;
 }
 
+simulated function bool GetUsingTactialReload( KFWeapon KFW )
+{
+
+	return (IsWeaponOnPerk(KFW) && bTacticalReload ? true : false);
+}
+
+
 simulated function float GetIronSightSpeedModifier( KFWeapon KFW )
 {
 	return ((RepTacticalMove>0 && IsWeaponOnPerk(KFW)) ? MoveSpeedMods[RepTacticalMove-1] : 1.f);
@@ -22,11 +29,11 @@ simulated function bool GetIsUberAmmoActive( KFWeapon KFW )
 
 defaultproperties
 {
-	PerkName="SWAT"
 	PerkIcon=Texture2D'UI_PerkIcons_TEX.UI_PerkIcon_SWAT'
 	DefTraitList.Add(class'Ext_TraitWPSWAT')
 	DefTraitList.Add(class'Ext_TraitHeavyArmor')
 	DefTraitList.Add(class'Ext_TraitTacticalMove')
+	DefTraitList.Add(class'Ext_TraitEliteReload')	
 	DefTraitList.Add(class'Ext_TraitSWATEnforcer')
 	DefTraitList.Add(class'Ext_TraitRapidAssault')
 	BasePerk=class'KFPerk_SWAT'

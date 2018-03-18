@@ -8,7 +8,6 @@ simulated function bool GetIsUberAmmoActive(KFWeapon KFW)
 
 defaultproperties
 {
-	PerkName="×Ý»ð·¸"
 	PerkIcon=Texture2D'UI_PerkIcons_TEX.UI_PerkIcon_Firebug'
 	DefTraitList.Add(class'Ext_TraitWPFire')
 	DefTraitList.Add(class'Ext_TraitNapalm')

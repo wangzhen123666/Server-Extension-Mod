@@ -11,7 +11,5 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 
 defaultproperties
 {
-	TraitName="火焰爆炸"
 	DefLevelCosts(0)=50
-	Description="使丧尸被点燃死亡后几率爆炸"
 }

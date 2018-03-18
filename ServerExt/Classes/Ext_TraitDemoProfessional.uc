@@ -5,7 +5,7 @@ static function string GetPerkDescription()
 	local string S;
 
 	S = Super.GetPerkDescription();
-	S $= "|特性需要转生等级: #{FF4000}1";
+	S $= Default.ExtraDesc;
 	return S;
 }
 
@@ -39,8 +39,6 @@ static function TraitDeActivate( Ext_PerkBase Perk, byte Level, optional Ext_Tra
 defaultproperties
 {
 	SupportedPerk=class'Ext_PerkDemolition'
-	TraitName="爆破专家"
 	DefLevelCosts(0)=100
 	DefMinLevel=100
-	Description="爆破武器投射物将不会哑弹. ||-需求: 装弹速度属性需要加30点以上!"
 }

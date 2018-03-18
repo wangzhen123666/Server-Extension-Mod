@@ -1,4 +1,4 @@
-Class Ext_PerkFieldMedic extends Ext_PerkBase;
+Class Ext_PerkFieldMedic extends Ext_PerkMetronomeBase;
 
 var float RepairArmorRate,AirborneAgentHealRate;
 var byte AirborneAgentLevel;
@@ -11,6 +11,7 @@ var float HealingSpeedBoostPct, HealingDamageBoostPct, HealingShieldPct;
 var bool bUseToxicDamage,bUseSlug,bUseAirborneAgent;
 
 var const class<KFDamageType> ToxicDmgTypeClass;
+
 
 simulated function ModifyDamageGiven( out int InDamage, optional Actor DamageCauser, optional KFPawn_Monster MyKFPM, optional KFPlayerController DamageInstigator, optional class<KFDamageType> DamageType, optional int HitZoneIdx )
 {
@@ -90,7 +91,7 @@ static function int ModifyToxicDmg(int ToxicDamage)
 {
 	local float TempDamage;
 
-	TempDamage = float(ToxicDamage) * 1.5;
+	TempDamage = float(ToxicDamage) * 2.0;
 	return FCeil( TempDamage );
 }
 
@@ -167,7 +168,6 @@ simulated function float GetSelfHealingSurgePct()
 
 defaultproperties
 {
-	PerkName="Ò½ÁÆ±ø"
 	PerkIcon=Texture2D'UI_PerkIcons_TEX.UI_PerkIcon_Medic'
 	DefTraitList.Remove(class'Ext_TraitMedicPistol')
 	DefTraitList.Add(class'Ext_TraitAirborne')
@@ -178,6 +178,7 @@ defaultproperties
 	DefTraitList.Add(class'Ext_TraitMedShield')
 	DefTraitList.Add(class'Ext_TraitZedative')
 	DefTraitList.Add(class'Ext_TraitAirborneAgent')
+	DefTraitList.Add(class'Ext_TraitMetronome')
 	BasePerk=class'KFPerk_FieldMedic'
 	HealExpUpNum=3
 	

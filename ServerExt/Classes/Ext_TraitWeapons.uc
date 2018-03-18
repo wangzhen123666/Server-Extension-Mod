@@ -22,7 +22,11 @@ static final function bool HasMaxCarry( Ext_PerkBase Perk )
 }
 static function string GetPerkDescription()
 {
-	return Super.GetPerkDescription()$"|- Level 4 requires perk level 40 and level 3 carry capacity trait!";
+	local string S;
+
+	S = Super.GetPerkDescription();
+	S $= Default.ExtraDescription;
+	return S;
 }
 
 static function TraitActivate( Ext_PerkBase Perk, byte Level, optional Ext_TraitDataStore Data )
