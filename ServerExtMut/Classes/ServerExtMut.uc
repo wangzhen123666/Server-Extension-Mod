@@ -50,6 +50,8 @@ var ExtSpawnPointHelper SpawnPointer;
 var bool bRespawnCheck,bSpecialSpawn,bGameHasEnded,bIsPostGame;
 var config bool bKillMessages,bDamageMessages,bEnableMapVote,bNoAdminCommands,bNoWebAdmin,bNoBoomstickJumping,bDumpXMLStats,bRagdollFromFall,bRagdollFromMomentum,bRagdollFromBackhit,bAddCountryTags;
 
+var Localized string localizedStr[46];
+
 function PostBeginPlay()
 {
 	local xVotingHandler MV;
@@ -689,14 +691,14 @@ final function SavePlayerPerk( ExtPlayerController PC )
 		// Verify broken stats.
 		if( PC.ActivePerkManager.bUserStatsBroken )
 		{
-			PC.ClientMessage("Warning: Your stats are broken, not saving.",'Priority');
+			PC.ClientMessage(localizedStr[0],'Priority');
 			return;
 		}
 		ServerStatLoader.FlushData();
 		if( ServerStatLoader.LoadStatFile(PC) && ServerStatLoader.GetSaveVersion()!=PC.ActivePerkManager.UserDataVersion )
 		{
 			PC.ActivePerkManager.bUserStatsBroken = true;
-			PC.ClientMessage("Warning: Your stats save data version differs from what is loaded, stat saving disabled to prevent stats loss.",'Priority');
+			PC.ClientMessage(localizedStr[1],'Priority');
 			return;
 		}
 		
@@ -738,7 +740,7 @@ function CheckRespawn( Controller PC )
 	if( bIsPostGame && PC.PlayerReplicationInfo.Score<PostGameRespawnCost )
 	{
 		if( PlayerController(PC)!=None )
-			PlayerController(PC).ClientMessage("You can't afford to respawn anymore (need "$PostGameRespawnCost@Chr(163)$")!",'LowCriticalEvent');
+			PlayerController(PC).ClientMessage(localizedStr[2]$PostGameRespawnCost@Chr(163),'LowCriticalEvent');
 		return;
 	}
 	ExtPlayerReplicationInfo(PC.PlayerReplicationInfo).RespawnCounter = PlayerRespawnTime;
@@ -796,7 +798,7 @@ function Timer()
 			PC.PlayerReplicationInfo.bForceNetUpdate = true;
 
 			if( PlayerController(PC)!=None )
-				PlayerController(PC).ClientMessage("You can't afford to respawn anymore (need "$PostGameRespawnCost@Chr(163)$")!",'LowCriticalEvent');
+				PlayerController(PC).ClientMessage(localizedStr[2]$PostGameRespawnCost@Chr(163),'LowCriticalEvent');
 			PendingSpawners.Remove(i--,1);
 		}
 		else if( --ExtPlayerReplicationInfo(PC.PlayerReplicationInfo).RespawnCounter<=0 )
@@ -811,7 +813,7 @@ function Timer()
 					if( bIsPostGame )
 					{
 						if( PlayerController(PC)!=None )
-							PlayerController(PC).ClientMessage("This respawn cost you "$PostGameRespawnCost@Chr(163)$"!",'LowCriticalEvent');
+							PlayerController(PC).ClientMessage(localizedStr[3]$PostGameRespawnCost@Chr(163),'LowCriticalEvent');
 						PC.PlayerReplicationInfo.Score-=PostGameRespawnCost;
 					}
 					ExtPlayerReplicationInfo(PC.PlayerReplicationInfo).RespawnCounter = -1;
@@ -1050,7 +1052,7 @@ function PlayerBuyStats( ExtPlayerController PC, class<Ext_PerkBase> Perk, int i
 	}
 	P.CurrentSP-=i;
 	if( !P.IncrementStat(iStat,Amount) )
-		PC.ClientMessage("Failed to buy stat.");
+		PC.ClientMessage(localizedStr[4]);
 }
 function PlayerChangePerk( ExtPlayerController PC, class<Ext_PerkBase> NewPerk )
 {
@@ -1060,7 +1062,7 @@ function PlayerChangePerk( ExtPlayerController PC, class<Ext_PerkBase> NewPerk )
 	{
 		if( PC.PendingPerkClass!=None )
 		{
-			PC.ClientMessage("You will remain the same perk now.");
+			PC.ClientMessage(localizedStr[5]);
 			PC.PendingPerkClass = None;
 		}
 	}
@@ -1068,16 +1070,16 @@ function PlayerChangePerk( ExtPlayerController PC, class<Ext_PerkBase> NewPerk )
 	{
 		if( PC.ActivePerkManager.ApplyPerkClass(NewPerk) )
 		{
-			PC.ClientMessage("You have changed your perk to "$NewPerk.Default.PerkName);
+			PC.ClientMessage(localizedStr[6]$NewPerk.Default.PerkName);
 			PC.bSetPerk = true;
 		}
-		else PC.ClientMessage("Invalid perk "$NewPerk.Default.PerkName);
+		else PC.ClientMessage(localizedStr[7]$NewPerk.Default.PerkName);
 	}
 	else if( PC.bSetPerk )
-		PC.ClientMessage("Can only change perks once per wave");
+		PC.ClientMessage(localizedStr[8]);
 	else
 	{
-		PC.ClientMessage("You will change to perk '"$NewPerk.Default.PerkName$"' during trader time.");
+		PC.ClientMessage(localizedStr[9]$NewPerk.Default.PerkName);
 		PC.PendingPerkClass = NewPerk;
 	}
 }
@@ -1087,10 +1089,10 @@ function CheckPerkChange( ExtPlayerController PC )
 	{
 		if( PC.ActivePerkManager.ApplyPerkClass(PC.PendingPerkClass) )
 		{
-			PC.ClientMessage("You have changed your perk to "$PC.PendingPerkClass.Default.PerkName);
+			PC.ClientMessage(localizedStr[6]$PC.PendingPerkClass.Default.PerkName);
 			PC.bSetPerk = true;
 		}
-		else PC.ClientMessage("Invalid perk "$PC.PendingPerkClass.Default.PerkName);
+		else PC.ClientMessage(localizedStr[7]$PC.PendingPerkClass.Default.PerkName);
 		PC.PendingPerkClass = None;
 	}
 }
@@ -1219,7 +1221,7 @@ function ResetPlayerPerk( ExtPlayerController PC, class<Ext_PerkBase> PerkClass,
 	{
 		if( !P.CanPrestige() )
 		{
-			PC.ClientMessage("Prestige for this perk is not allowed.");
+			PC.ClientMessage(localizedStr[10]);
 			return;
 		}
 		++P.CurrentPrestige;
@@ -1250,12 +1252,12 @@ function AdminCommand( ExtPlayerController PC, int PlayerID, int Action )
 	
 	if( bNoAdminCommands )
 	{
-		PC.ClientMessage("Admin level commands are disabled.",'Priority');
+		PC.ClientMessage(localizedStr[11],'Priority');
 		return;
 	}
 	if( !HasPrivs(ExtPlayerReplicationInfo(PC.PlayerReplicationInfo)) )
 	{
-		PC.ClientMessage("You do not have enough admin priveleges.",'Priority');
+		PC.ClientMessage(localizedStr[12],'Priority');
 		return;
 	}
 	
@@ -1265,7 +1267,7 @@ function AdminCommand( ExtPlayerController PC, int PlayerID, int Action )
 	
 	if( E==None )
 	{
-		PC.ClientMessage("Action failed, missing playerID: "$PlayerID,'Priority');
+		PC.ClientMessage(localizedStr[13]$PlayerID$localizedStr[14],'Priority');
 		return;
 	}
 	
@@ -1273,19 +1275,19 @@ function AdminCommand( ExtPlayerController PC, int PlayerID, int Action )
 	{
 		if( E.ActivePerkManager.CurrentPerk==None )
 		{
-			PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$" has no perk selected!!!",'Priority');
+			PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$localizedStr[15],'Priority');
 			return;
 		}
 		if( Action>=100000 ) // Set prestige level.
 		{
 			if( E.ActivePerkManager.CurrentPerk.MinLevelForPrestige<0 )
 			{
-				PC.ClientMessage("Perk "$E.ActivePerkManager.CurrentPerk.Default.PerkName$" has prestige disabled!",'Priority');
+				PC.ClientMessage(localizedStr[16]$E.ActivePerkManager.CurrentPerk.Default.PerkName$localizedStr[17],'Priority');
 				return;
 			}
 			Action = Min(Action-100000,E.ActivePerkManager.CurrentPerk.MaxPrestige);
 			E.ActivePerkManager.CurrentPerk.CurrentPrestige = Action;
-			PC.ClientMessage("Set "$E.PlayerReplicationInfo.PlayerName$"' perk "$E.ActivePerkManager.CurrentPerk.Default.PerkName$" prestige level to "$Action,'Priority');
+			PC.ClientMessage(localizedStr[18]$E.PlayerReplicationInfo.PlayerName$localizedStr[19]$E.ActivePerkManager.CurrentPerk.Default.PerkName$localizedStr[20]$Action,'Priority');
 			
 			E.ActivePerkManager.CurrentPerk.FullReset(true);
 		}
@@ -1293,7 +1295,7 @@ function AdminCommand( ExtPlayerController PC, int PlayerID, int Action )
 		{
 			Action = Clamp(Action-100,E.ActivePerkManager.CurrentPerk.MinimumLevel,E.ActivePerkManager.CurrentPerk.MaximumLevel);
 			E.ActivePerkManager.CurrentPerk.CurrentEXP = E.ActivePerkManager.CurrentPerk.GetNeededExp(Action-1);
-			PC.ClientMessage("Set "$E.PlayerReplicationInfo.PlayerName$"' perk "$E.ActivePerkManager.CurrentPerk.Default.PerkName$" level to "$Action,'Priority');
+			PC.ClientMessage(localizedStr[18]$E.PlayerReplicationInfo.PlayerName$localizedStr[19]$E.ActivePerkManager.CurrentPerk.Default.PerkName$localizedStr[21]$Action,'Priority');
 			
 			E.ActivePerkManager.CurrentPerk.SetInitialLevel();
 			E.ActivePerkManager.CurrentPerk.UpdatePRILevel();
@@ -1306,15 +1308,15 @@ function AdminCommand( ExtPlayerController PC, int PlayerID, int Action )
 	case 0: // Reset ALL Stats
 		for( i=0; i<E.ActivePerkManager.UserPerks.Length; ++i )
 			E.ActivePerkManager.UserPerks[i].FullReset();
-		PC.ClientMessage("Reset EVERY perk for "$E.PlayerReplicationInfo.PlayerName,'Priority');
+		PC.ClientMessage(localizedStr[22]$E.PlayerReplicationInfo.PlayerName$localizedStr[23],'Priority');
 		break;
 	case 1: // Reset Current Perk Stats
 		if( E.ActivePerkManager.CurrentPerk!=None )
 		{
 			E.ActivePerkManager.CurrentPerk.FullReset();
-			PC.ClientMessage("Reset perk "$E.ActivePerkManager.CurrentPerk.Default.PerkName$" for "$E.PlayerReplicationInfo.PlayerName,'Priority');
+			PC.ClientMessage(localizedStr[24]$E.PlayerReplicationInfo.PlayerName$localizedStr[25]$E.ActivePerkManager.CurrentPerk.Default.PerkName,'Priority');
 		}
-		else PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$" has no perk selected!!!",'Priority');
+		else PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$localizedStr[15],'Priority');
 		break;
 	case 2: // Add 1,000 XP
 	case 3: // Add 10,000 XP
@@ -1327,15 +1329,15 @@ function AdminCommand( ExtPlayerController PC, int PlayerID, int Action )
 				i = 10000;
 			else i = Max(E.ActivePerkManager.CurrentPerk.NextLevelEXP - E.ActivePerkManager.CurrentPerk.CurrentEXP,0);
 			E.ActivePerkManager.EarnedEXP(i);
-			PC.ClientMessage("Gave "$i$" XP for "$E.PlayerReplicationInfo.PlayerName,'Priority');
+			PC.ClientMessage(localizedStr[26]$E.PlayerReplicationInfo.PlayerName $i$localizedStr[27],'Priority');
 		}
-		else PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$" has no perk selected!!!",'Priority');
+		else PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$localizedStr[15],'Priority');
 		break;
 	case 5: // Unload all stats
 		if( E.ActivePerkManager.CurrentPerk!=None )
 		{
 			E.ActivePerkManager.CurrentPerk.UnloadStats(1);
-			PC.ClientMessage("Unloaded all stats for "$E.PlayerReplicationInfo.PlayerName,'Priority');
+			PC.ClientMessage(localizedStr[28]$E.PlayerReplicationInfo.PlayerName$localizedStr[29],'Priority');
 		}
 		else PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$" has no perk selected!!!",'Priority');
 		break;
@@ -1343,9 +1345,9 @@ function AdminCommand( ExtPlayerController PC, int PlayerID, int Action )
 		if( E.ActivePerkManager.CurrentPerk!=None )
 		{
 			E.ActivePerkManager.CurrentPerk.UnloadStats(2);
-			PC.ClientMessage("Unloaded all traits for "$E.PlayerReplicationInfo.PlayerName,'Priority');
+			PC.ClientMessage(localizedStr[30]$E.PlayerReplicationInfo.PlayerName$localizedStr[31],'Priority');
 		}
-		else PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$" has no perk selected!!!",'Priority');
+		else PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$localizedStr[15],'Priority');
 		break;
 	case 7: // Remove 1,000 XP
 	case 8: // Remove 10,000 XP
@@ -1355,19 +1357,19 @@ function AdminCommand( ExtPlayerController PC, int PlayerID, int Action )
 				i = 1000;
 			else i = 10000;
 			E.ActivePerkManager.CurrentPerk.CurrentEXP = Max(E.ActivePerkManager.CurrentPerk.CurrentEXP-i,0);
-			PC.ClientMessage("Removed "$i$" XP from "$E.PlayerReplicationInfo.PlayerName,'Priority');
+			PC.ClientMessage(localizedStr[32]$E.PlayerReplicationInfo.PlayerName $i$localizedStr[27],'Priority');
 		}
-		else PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$" has no perk selected!!!",'Priority');
+		else PC.ClientMessage(E.PlayerReplicationInfo.PlayerName$localizedStr[15],'Priority');
 		break;
 	case 9: // Show Debug Info
-		PC.ClientMessage("DEBUG info for "$E.PlayerReplicationInfo.PlayerName,'Priority');
-		PC.ClientMessage("PerkManager "$E.ActivePerkManager$" Current Perk: "$E.ActivePerkManager.CurrentPerk,'Priority');
-		PC.ClientMessage("Perks Count: "$E.ActivePerkManager.UserPerks.Length,'Priority');
+		PC.ClientMessage(E.PlayerReplicationInfo.PlayerName $localizedStr[33],'Priority');
+		PC.ClientMessage(localizedStr[34]$E.ActivePerkManager$localizedStr[35]$E.ActivePerkManager.CurrentPerk,'Priority');
+		PC.ClientMessage(localizedStr[36]$E.ActivePerkManager.UserPerks.Length,'Priority');
 		for( i=0; i<E.ActivePerkManager.UserPerks.Length; ++i )
-			PC.ClientMessage("Perk "$i$": "$E.ActivePerkManager.UserPerks[i]$" XP:"$E.ActivePerkManager.UserPerks[i].CurrentEXP$" Lv:"$E.ActivePerkManager.UserPerks[i].CurrentLevel$" Rep:"$E.ActivePerkManager.UserPerks[i].bPerkNetReady,'Priority');
+			PC.ClientMessage(localizedStr[16]$i$": "$E.ActivePerkManager.UserPerks[i]$localizedStr[27]$": "$E.ActivePerkManager.UserPerks[i].CurrentEXP$localizedStr[37]$E.ActivePerkManager.UserPerks[i].CurrentLevel$" Rep:"$E.ActivePerkManager.UserPerks[i].bPerkNetReady,'Priority');
 		break;
 	default:
-		PC.ClientMessage("Unknown admin action.",'Priority');
+		PC.ClientMessage(localizedStr[38],'Priority');
 	}
 }
 function AdminSetMOTD( ExtPlayerController PC, string S )
@@ -1376,7 +1378,7 @@ function AdminSetMOTD( ExtPlayerController PC, string S )
 		return;
 	ServerMOTD = S;
 	SaveConfig();
-	PC.ClientMessage("Message of the Day updated.",'Priority');
+	PC.ClientMessage(localizedStr[39],'Priority');
 }
 
 function PlayerChangeSpec( ExtPlayerController PC, bool bSpectator )
@@ -1386,11 +1388,11 @@ function PlayerChangeSpec( ExtPlayerController PC, bool bSpectator )
 	PC.NextSpectateChange = WorldInfo.TimeSeconds+0.5;
 
 	if( WorldInfo.Game.bGameEnded )
-		PC.ClientMessage("Can't change spectate mode after end-game.");
+		PC.ClientMessage(localizedStr[40]);
 	else if( WorldInfo.Game.bWaitingToStartMatch )
-		PC.ClientMessage("Can't change spectate mode before game has started.");
+		PC.ClientMessage(localizedStr[41]);
 	else if( WorldInfo.Game.AtCapacity(bSpectator,PC.PlayerReplicationInfo.UniqueId) )
-		PC.ClientMessage("Can't change spectate mode because game is at its maximum capacity.");
+		PC.ClientMessage(localizedStr[42]);
 	else if( bSpectator )
 	{
 		PC.NextSpectateChange = WorldInfo.TimeSeconds+2.5;
@@ -1402,7 +1404,7 @@ function PlayerChangeSpec( ExtPlayerController PC, bool bSpectator )
 		PC.Reset();
 		--WorldInfo.Game.NumPlayers;
 		++WorldInfo.Game.NumSpectators;
-		WorldInfo.Game.Broadcast(PC,PC.PlayerReplicationInfo.GetHumanReadableName()@"became a spectator");
+		WorldInfo.Game.Broadcast(PC,PC.PlayerReplicationInfo.GetHumanReadableName()@localizedStr[43]);
 		RemoveRespawn(PC);
 	}
 	else
@@ -1411,14 +1413,14 @@ function PlayerChangeSpec( ExtPlayerController PC, bool bSpectator )
 		if( !WorldInfo.Game.ChangeTeam(PC,WorldInfo.Game.PickTeam(0,PC,PC.PlayerReplicationInfo.UniqueId),false) )
 		{
 			PC.PlayerReplicationInfo.bOnlySpectator = true;
-			PC.ClientMessage("Can't become an active player, failed to set a team.");
+			PC.ClientMessage(localizedStr[44]);
 			return;
 		}
 		PC.NextSpectateChange = WorldInfo.TimeSeconds+2.5;
 		++WorldInfo.Game.NumPlayers;
 		--WorldInfo.Game.NumSpectators;
 		PC.Reset();
-		WorldInfo.Game.Broadcast(PC,PC.PlayerReplicationInfo.GetHumanReadableName()@"became an active player");
+		WorldInfo.Game.Broadcast(PC,PC.PlayerReplicationInfo.GetHumanReadableName()@localizedStr[45]);
 		if( bRespawnCheck )
 			CheckRespawn(PC);
 	}

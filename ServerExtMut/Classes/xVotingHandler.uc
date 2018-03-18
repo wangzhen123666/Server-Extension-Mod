@@ -21,6 +21,8 @@ var string PendingMapURL;
 var KFGameReplicationInfo KF;
 var bool bMapvoteHasEnded,bMapVoteTimer,bHistorySaved;
 
+var Localized string localizedStr;
+
 function PostBeginPlay()
 {
 	local int i,j,z,n,UpV,DownV,Seq,NumPl;
@@ -247,7 +249,7 @@ function ClientCastVote( xVotingReplication V, int GameIndex, int MapIndex, bool
 	}
 	if( !Class'xUI_MapVote'.Static.BelongsToPrefix(Maps[MapIndex].MapName,GameModes[GameIndex].Prefix) )
 	{
-		V.PlayerOwner.ClientMessage("错误: 不能投票这个地图 (该地图游戏模式的前缀错误)!");
+		V.PlayerOwner.ClientMessage("Error: Can't vote that map (wrong Prefix to that game mode)!");
 		return;
 	}
 	if( V.CurrentVote[0]>=0 )
@@ -454,7 +456,7 @@ final function SwitchToLevel( int GameIndex, int MapIndex, bool bAdminForce )
 	S = Maps[MapIndex].MapName$" ("$GameModes[GameIndex].GameName$")";
 	for( i=(ActiveVoters.Length-1); i>=0; --i )
 	{
-		KFPlayerController(ActiveVoters[i].PlayerOwner).ShowConnectionProgressPopup(PMT_AdminMessage,"切换到:",S);
+		KFPlayerController(ActiveVoters[i].PlayerOwner).ShowConnectionProgressPopup(PMT_AdminMessage,localizedStr,S);
 		ActiveVoters[i].ClientNotifyVoteWin(GameIndex,MapIndex,bAdminForce);
 	}
 	
